@@ -48,7 +48,7 @@ const updateUserbyId = async (req,res) => {
 
 const deleteUserbyId = async (req,res) => {
     const id = parseInt(req.params.id);
-    const index = users.findIndex(u => u.id === id);
+    const index = users.findIndex(user => user.id === id);
 
     if (index === -1) return res.status(404).json({ error: 'User not found' });
 
