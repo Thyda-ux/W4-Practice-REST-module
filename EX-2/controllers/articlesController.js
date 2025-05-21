@@ -10,6 +10,30 @@ const getArticles = async (req,res) => {
    res.json(article);
 };
 
+const getArticlesByJournalist = async (req, res) => {
+    const journalistId = parseInt(req.params.id);
+    const filteredArticles = articles.filter(article => article.journalistId === journalistId);
+
+    if (filteredArticles.length === 0) {
+        return res.status(404).json({ error: 'No articles found for this journalist' });
+    }
+
+    res.json(filteredArticles);
+};
+
+const getArticlesByCategory = async (req, res) => {
+    const categoryId = parseInt(req.params.id);
+    const filteredArticles = articles.filter(article => article.categoryId === categoryId);
+
+    if (filteredArticles.length === 0) {
+        return res.status(404).json({ error: 'No articles found for this category' });
+    }
+
+    res.json(filteredArticles);
+};
+
+
+
 const createArticle = async (req,res) => {
     const { title , content } = req.body;
     if(!title || !content) {
@@ -58,4 +82,4 @@ const deleteArticlebyId = async (req,res) => {
     res.status(204).send();
 };
 
-export {listArticles,getArticles,createArticle,updateArticlebyId,deleteArticlebyId};
+export {listArticles,getArticles,getArticlesByJournalist,getArticlesByCategory,createArticle,updateArticlebyId,deleteArticlebyId};
